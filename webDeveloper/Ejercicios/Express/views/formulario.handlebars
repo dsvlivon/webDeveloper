@@ -1,0 +1,18 @@
+<h1>FORMULARIO ALTA TAREA</h1>
+
+{{error}} 
+{{errorDos}} 
+{{errorTres}} 
+
+    
+<form action="/procesar_alta" method="post">
+  <label for="nombre">Nombre:</label>
+  <input type="text" name="nombre" id="nombre" value={{nombre}}>
+  <br>
+  <input type="checkbox" name="realizada" id="realizada">
+  <label for="realizada">Realizado?</label>
+  <br>
+  <button type="submit"> Guardar</button>
+</form>
+        
+<!-- 3 llaves es para meter codigo y 2 para indicar contenido

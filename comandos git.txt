@@ -1,0 +1,52 @@
+ls (muestra carpetas del directorio)
+   (si t paras en la carpeta del workspace ya arranca desde ahí)
+   (dsd eclipse si pones en la carpeta del directorio, click derecho. propiedades y ahi una opcion
+    para ir directamente al directorio)
+
+cd (entra a "X" carpeta)
+cd .. (vuelve)
+
+git init (convierte una carpeta en repositorio)	
+git status (da status del repo)
+git add -A (agrega carpetas sujeto a modificación)
+git commit -m "mensaje" (saca la foto del momento)
+git remote add origin https://.... (asociar a la cuenta)
+git push -u origin master (verifica la cuenta y sube a internet)
+git clone (para descargar a local con el url q sacas d github)
+git pull (trae solo los cambios a la carpeta ya existente)
+git clear (despeja la pantalla d terminal)
+git log (lista commits existentes y demas info)
+git checkout "codigo commit"(viaja a un punto determinado x el codigo del commit)
+git checkout master (vuelve al "presente")
+
+
+add primero.
+commit 
+push
+
+
+pull
+
+siempre q dejas una estacion de trabajo para trabajar en otra, hay q hacer el push
+para bajarlo en otro lugar.
+
+si t tira el error de "fatal: not a git repository.." tenes q entrar en la carpeta del repo. utiliza cd NOMBRE DE LA CARPETA
+
+tiras el status y te tiene q decir 
+
+
+
+"On branch master
+Yout branch is up-to-date with "origin/master"
+nothing to commit, working tree clean"
+
+
+
+
+
+
+
+
+dsd casa usar comando pull para traerlo. NO deberia volver a clonar.
+avanzo en casa hago un push.
+llego al laboratorio y hago un clone

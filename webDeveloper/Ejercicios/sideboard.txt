@@ -1,0 +1,14 @@
+<div class="row">
+           
+</div>
+
+<div class="col menu">
+
+</div>
+
+row = fila
+col = columna
+
+
+Diseñador Industrial recibido con casi 8 años de experiencia en las áreas de producción y desarrollo y, otros 5 años en posiciones relativas a compras y logística.
+
