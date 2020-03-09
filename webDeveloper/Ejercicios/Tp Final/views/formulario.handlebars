@@ -1,0 +1,31 @@
+<h1>FORMULARIO ALTA TAREA</h1>
+
+ 
+<div class="container">
+    
+  <form method="post"> <!-- IMPORTANTE para no usar dos url similares en alta y la modificacion, le saco el action-->
+    {{error}}<!-- error de campo vacio-->
+    {{errorDos}} <!-- error de nombre muy corto-->
+    <div class="form-group">
+      <label for="nombre">Nombre:</label>
+      <input type="text" name="nombre" id="nombre" value="{{datos.nombre}}">
+    </div>
+    {{errorTres}}<!-- error de mensaje muy corto-->
+    <div class="form-group">
+      <label for="state_id" class="control-label">Como te sentiste?</label>
+      <select class="form-control" id="state_id">
+        <option value="feliz">Feliz</option>
+        <option value="infeliz">Infeliz</option>
+        <option value="regular">Regular</option>
+      </select>                    
+    </div>
+
+    <div class="form-group">
+      <div>
+        <textarea class="form-control" id="message" name="message" placeholder="Tu opinion nos importa" rows="7"></textarea>
+      </div>
+    </div>
+
+    <button type="submit"> Guardar</button>
+  </form>
+</div>

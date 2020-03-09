@@ -1,0 +1,32 @@
+app.get ('buscarid', async function(req, res){
+    await ArtistaModel.findByIdAndUpdate(
+        {_id 'asdasdsadasd'},
+        {nombre'Nuevo nombre', apellido 'NA'}
+    );
+    res.send('ok');
+});
+
+
+app.get ('borrar', async function(req, res){
+    var rta = await ElementModel.findByIdAndRemove(
+        {_id '5e56fe51143a530abc834fa8'}
+    );
+    res.send(rta);
+});
+
+app.get ('modificar', async function(req, res){
+    await ArtistaModel.findByIdAndUpdate(
+        {_id '5e56fe51143a530abc834fa8'},
+        {nombre'Nuevo nombre', apellido 'NA'}
+    );
+    res.send('ok');
+});
+
+
+app.get('agregar', async function(req,res){
+    var nuevoArtista = ArtistaModel.create(
+        {nombre 'jon', apellido 'doe'}
+        );
+        res.send(nuevoArtista);
+
+});
