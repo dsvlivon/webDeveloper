@@ -14,13 +14,13 @@
                 <div class="col-md-4">
                   <br>
                   <a href="#" class="text-decoration-none">Nombre: </a>
-                  <input type="text" name="nombre" id="nombre" value="{{datos.nombre}}">
+                  <input type="text" name="nombre" id="nombre" value="{{datos.nombre}}" placeholder="Nombre">
                 </div>
 
                 <div class="col-md-8">
                   <a href="#" class="text-decoration-none">Como te sentiste? </a>
-                  <select class="form-control"  id="state_id" value="{{datos.estado}}">
-                    <option value="feliz">Elija una opcion</option>
+                  <select class="form-control" name="estado" id="estado" value="{{datos.estado}}">
+                    <option value="feliz">Opción</option>
                     <option value="feliz">Feliz</option>
                     <option value="infeliz">Infeliz</option>
                     <option value="regular">Regular</option>
@@ -35,7 +35,7 @@
 
             <div class="form-group">
               <div>
-                <textarea class="form-control" id="message" name="message" value="{{datos.mensaje}}" rows="7"></textarea>
+                <textarea class="form-control" id="mensaje" name="mensaje" value="{{datos.mensaje}}" placeholder="Escriba aquí" rows="7"></textarea>
               </div>
             </div>
 
