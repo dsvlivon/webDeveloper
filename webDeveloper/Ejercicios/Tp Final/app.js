@@ -15,7 +15,7 @@ async function conectar(){
 }
 conectar();
 
-const EstadoSchema = mongoose.Schema
+const ElementSchema = mongoose.Schema
 ({ 
     nombre: String,
     estado: String,
@@ -23,7 +23,7 @@ const EstadoSchema = mongoose.Schema
 })// definicion de estructura
 
 
-const EstadoModel = mongoose.model('Estado',EstadoSchema);
+const ElementModel = mongoose.model('Element',ElementSchema);
 
 app.use(express.urlencoded({extended: true})); //Para evitar warnings 
 
@@ -40,12 +40,12 @@ app.post('/alta', async function(req, res) {
         });
         return;
     }  /*Relleno el primer Estado*/
-    await EstadoModel.create({nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje});
+    await ElementModel.create({nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje});
     res.redirect('/listado');
 });
 
 app.get('/listado', async function(req, res) {
-    var list = await EstadoModel.find().lean();
+    var list = await ElementModel.find().lean();
     //res.redirect('/alta');
 
     res.render('listado', {listado: list});
@@ -53,7 +53,7 @@ app.get('/listado', async function(req, res) {
 
 app.get('/borrar/:id', async function(req, res) {
     // :id -> req.params.id
-    await EstadoModel.findByIdAndRemove(
+    await ElementModel.findByIdAndRemove(
         {_id: req.params.id}
     );
     res.redirect('/listado');
@@ -61,8 +61,8 @@ app.get('/borrar/:id', async function(req, res) {
 
 
 app.get('/editar/:id', async function(req, res) {
-    var Estado = await EstadoModel.findById({_id: req.params.id}).lean();
-    res.render('formulario', {datos: Estado});
+    var buffer = await ElementModel.findById({_id: req.params.id}).lean();
+    res.render('formulario', {datos: buffer});
 });
 
 app.post('/editar/:id', async function(req, res) {
@@ -72,21 +72,11 @@ app.post('/editar/:id', async function(req, res) {
         });
         return;
     }
-    await EstadoModel.findByIdAndUpdate(
+    await ElementModel.findByIdAndUpdate(
         {_id: req.params.id},{nombre:req.body.nombre, mensaje:req.body.mensaje, estado:req.body.estado}
     );
     res.redirect('/listado');
 });
-
-
-/*
-app.get('/buscar/:id', async function(req, res) {
-    var listado = await EstadoModel.find({_id: req.params.id});
-    res.send(listado);
-});
-*/
-
-
 
 
 app.listen(80, function() {
