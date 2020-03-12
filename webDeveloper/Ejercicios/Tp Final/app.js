@@ -1,99 +1,94 @@
+//Declaraciones y paquetes express necesarios.
 var express = require('express');
-var app = express ();
+var app = express();
 var mongoose = require('mongoose');
 var hbs = require('express-handlebars');
 
-app.engine('handlebars', hbs());
-app.set('view engine','handlebars');
-
 mongoose.Promise = global.Promise;
 
-app.use(express.urlencoded({extended:true})); // para traducir la informacion, si no no interpreta las definiciones
+app.engine('handlebars', hbs());
+app.set('view engine', 'handlebars');
 
-
-async function conectar(){
-    await mongoose.connect('mongodb://localHost',{useNewUrlParser: true}) // para usarlo en tu pc usarias 'localhost'
+async function conectar(){ 
+    await mongoose.connect('mongodb://localhost:27017',{useNewUrlParser: true})
     console.log('!!Conected!!');
 }
-
 conectar();
 
-const ElementSchema = mongoose.Schema({ 
+const EstadoSchema = mongoose.Schema
+({ 
     nombre: String,
-    apellido: String,
     estado: String,
     mensaje: String
-}); // definicion de estructura
+})// definicion de estructura
 
-const ElementModel = mongoose.model('Element', ElementSchema)
 
-app.get ('/', async function(req, res){
-    var list = await ElementModel.find();
-    res.send(list)
+const EstadoModel = mongoose.model('Estado',EstadoSchema);
+
+app.use(express.urlencoded({extended: true})); //Para evitar warnings 
+
+// Parte de programación - sentimómetro
+
+app.get('/alta', function(req, res) {res.render('formulario');})
+
+app.post('/alta', async function(req, res) {
+    
+    if (req.body.nombre=='' || req.body.mensaje=='') {
+        res.render('formulario', {
+            error: 'El nombre o texto es obligatorio',
+            datos: {nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje}
+        });
+        return;
+    }  /*Relleno el primer Estado*/
+    await EstadoModel.create({nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje});
+    res.redirect('/listado');
 });
 
-app.get ('/listado', async function(req, res){
-    var nomina = await ElementModel.find().lean();
-    
-    res.render('listado',{list: nomina});
+app.get('/listado', async function(req, res) {
+    var list = await EstadoModel.find().lean();
+    //res.redirect('/alta');
+
+    res.render('listado', {listado: list});
 });
 
-app.get('/alta',function(req,res){
-    res.render('formulario');
-}) // muestra el formulario para cargar
-
-app.post('/alta', async function(req,res)
-{
-    let name = req.body.nombre;
-    let lenName = name.length;
-    let mensaje = req.body.mensaje;
-    let lenMensaje = mensaje.length;
-
-    console.log(len);
-        if(name == "")
-        {
-            res.render('formulario',{error: 'Campo obliGATOrio'})
-            console.log(req.body);
-        }
-        else if(mensaje == "")
-        {
-            res.render('formulario',{error: 'Manda un mensaje no seas aburrido!'})
-            console.log(req.body);
-        }
-        else if(lenName<3)
-        {
-            res.render('formulario',{errorDos: 'el nombre es muy corto', nombre: name})
-        }
-        else if(len<10)
-        {
-            res.render('formulario',{errorTres: 'Eso solo? deci algo mas!', mensaje: mensaje})
-        }
-        else
-        {
-            await ElementModel.create({nombre: req.body.nombre, estado: req.body.estado, mensaje: req.body.mensaje});
-            res.redirect('/listado');
-        }
-}); //recibe la info cargada y con eso realiza una accion
-
-app.get('/borrar/:id',async function(req,res){
-    var buffer = await ElementModel.findByIdAndRemove(req.params.id)
+app.get('/borrar/:id', async function(req, res) {
+    // :id -> req.params.id
+    await EstadoModel.findByIdAndRemove(
+        {_id: req.params.id}
+    );
     res.redirect('/listado');
-}) //ese :id se transforma en req.params.id
+}); 
 
-app.get('/modificar/:id',async function(req,res){
-    var buffer = await ElementModel.findById(req.params.id).lean();
-    res.render('formulario', {datos: buffer});
-    
-    //res.redirect('/listado');
-}) //ese :id se transforma en req.params.id
 
-app.post('/modificar/:id', async function(req,res)
-{
-    await ElementModel.findByIdAndUpdate(req.params.id,{nombre: req.body.nombre, apellido: req.body.apellido});
+app.get('/editar/:id', async function(req, res) {
+    var Estado = await EstadoModel.findById({_id: req.params.id}).lean();
+    res.render('formulario', {datos: Estado});
+});
+
+app.post('/editar/:id', async function(req, res) {
+    if (req.body.nombre=='' || req.body.mensaje=='') {
+        res.render('formulario', {error: 'El nombre o el texto es obligatorio',
+                                datos: {nombre:req.body.nombre, mensaje:req.body.mensaje, estado:req.body.estado}
+        });
+        return;
+    }
+    await EstadoModel.findByIdAndUpdate(
+        {_id: req.params.id},{nombre:req.body.nombre, mensaje:req.body.mensaje, estado:req.body.estado}
+    );
     res.redirect('/listado');
-}); //recibe la info cargada y con eso realiza una accion
+});
 
 
-app.listen(80,function(){
-    console.log('App en localHost');
+/*
+app.get('/buscar/:id', async function(req, res) {
+    var listado = await EstadoModel.find({_id: req.params.id});
+    res.send(listado);
+});
+*/
+
+
+
+
+app.listen(80, function() {
+    console.log('App en localhost');
 });
