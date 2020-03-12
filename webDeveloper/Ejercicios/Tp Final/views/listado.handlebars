@@ -1,24 +1,57 @@
-<h1>Listado de artistas</h1>
+<div class="container shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="row">
+        <div class="col-md-12 header">
+             <img src="images\pic0.jpg"><br>
+        </div>
+    </div>
+    
+    <div class="row">
+        <div class="col-md-12">
+            <div class="well well-sm">
+                <div class="d-inline p-0 bg-primary text-white">
+                    <span class="d-block p-2 bg-primary text-white text-center " >Listado de emociones</span>
+                    <span class="d-block p-2 bg-dark text-white"></span>
+                </div>
+            
+                <table class="table text-center border "> 
+                    <tr class="font-weight-normal p-3 mb-2 bg-light text-dark font-weight-normal">
+                            <th>Nombre</th>
+                            <th>Estado</th>
+                            <th>Mensaje</th>
+                            <th>Borrar</th>
+                            <th>Editar</th>
+                    </tr>
+                    {{#each listado}}
+                    <div class="row">
+                        <div class="col-12">
+                            <tr>
+                                <div class="col-2">
+                                    <td>{{this.nombre}}</td>
+                                </div>
+                                <div class="col-2">
+                                    <td>{{this.estado}}</td>
+                                </div>
+                                <div class="col-4">
+                                    <td>{{this.mensaje}}</td>
+                                </div>
+                                <div class="col-2">
+                                    <td><a href="/borrar/{{this._id}}"><span class="badge badge-primary">Borrar</span></a></td>
+                                </div>
+                                    <td><a href="/editar/{{this._id}}"><span class="badge badge-primary">Editar</span></a></td>
+                                <div class="col-2">
+                            </tr>   
+                        </div>       
+                    </div>               
+                    {{/each}}
+                </table>
+                    <div class="row">
+                        <div class="col-12  ">
+                            <a href="/alta" class=" font-weight-lighter btn btn-primary">Agregar</a>
+                        </div>
 
-
-<a href="/alta" class= "btn btn-primary">Agregar</a>
-
-
-<table class="table">
-    <tr>
-        <th>Nombre</th>
-        <th>Estado</th>
-        <th>Mensaje</th>
-        <th>Borrar</th>
-        <th>Editar</th>
-    </tr>
-    {{#each listado}}
-        <tr>
-            <td>{{this.nombre}}</td>
-            <td>{{this.estado}}</td>
-            <td>{{this.mensaje}}</td>
-            <td><a href="/borrar/{{this._id}}"  class= "btn btn-primary">Borrar</a></td>
-            <td><a href="/editar/{{this._id}}"  class= "btn btn-primary">Editar</a></td>
-        </tr>
-    {{/each}}
-</table>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+</div>
