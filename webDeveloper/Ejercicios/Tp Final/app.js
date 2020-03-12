@@ -33,13 +33,12 @@ app.get('/alta', function(req, res) {res.render('formulario');})
 
 app.post('/alta', async function(req, res) {
     
-    if (req.body.nombre=='' || req.body.mensaje=='') {
-        res.render('formulario', {
-            error: 'El nombre o texto es obligatorio',
-            datos: {nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje}
-        });
+    if (req.body.nombre=='' || req.body.mensaje=='') 
+    {
+        res.render('formulario', {error: 'Complete los campos obligatorios',datos:
+                                 {nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje}});
         return;
-    }  /*Relleno el primer Estado*/
+    }
     await ElementModel.create({nombre:req.body.nombre, estado:req.body.estado, mensaje:req.body.mensaje});
     res.redirect('/listado');
 });
@@ -67,9 +66,8 @@ app.get('/editar/:id', async function(req, res) {
 
 app.post('/editar/:id', async function(req, res) {
     if (req.body.nombre=='' || req.body.mensaje=='') {
-        res.render('formulario', {error: 'El nombre o el texto es obligatorio',
-                                datos: {nombre:req.body.nombre, mensaje:req.body.mensaje, estado:req.body.estado}
-        });
+        res.render('formulario', {error: 'Complete los campos obligatorios', datos: 
+                                 {nombre:req.body.nombre, mensaje:req.body.mensaje, estado:req.body.estado}});
         return;
     }
     await ElementModel.findByIdAndUpdate(
