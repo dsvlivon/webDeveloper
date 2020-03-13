@@ -1,11 +1,5 @@
 <div class="container shadow-lg p-3 mb-5 bg-white rounded">
     <div class="row">
-        <div class="col-md-12 header">
-             <img src="images\pic0.jpg"><br>
-        </div>
-    </div>
-    
-    <div class="row">
         <div class="col-md-12">
             <div class="well well-sm">
                 <div class="d-inline p-0 bg-primary text-white">
@@ -21,28 +15,32 @@
                             <th>Borrar</th>
                             <th>Editar</th>
                     </tr>
-                    {{#each listado}}
-                    <div class="row">
-                        <div class="col-12">
-                            <tr>
-                                <div class="col-2">
-                                    <td>{{this.nombre}}</td>
-                                </div>
-                                <div class="col-2">
-                                    <td>{{this.estado}}</td>
-                                </div>
-                                <div class="col-4">
-                                    <td>{{this.mensaje}}</td>
-                                </div>
-                                <div class="col-2">
-                                    <td><a href="/borrar/{{this._id}}"><span class="badge badge-primary">Borrar</span></a></td>
-                                </div>
-                                    <td><a href="/editar/{{this._id}}"><span class="badge badge-primary">Editar</span></a></td>
-                                <div class="col-2">
-                            </tr>   
-                        </div>       
-                    </div>               
-                    {{/each}}
+                            {{#each listado}}
+                            <div class="row">
+                                <div class="col-12">
+                                    <tr>
+                                        <div class="row">
+                                                <div class="col-3">
+                                                    <td>{{this.nombre}}</td>
+                                                </div>
+                                                <div class="col-2">
+                                                    <td>{{this.estado}}</td>
+                                                </div>
+                                                <div class="col-3">
+                                                    <td>{{this.mensaje}}</td>
+                                                </div>
+                                                <div class="col-2">
+                                                    <td><a href="/borrar/{{this._id}}"><span class="badge badge-primary">Borrar</span></a></td>
+                                                </div>
+                                                <div class="col-2">
+                                                    <td><a href="/editar/{{this._id}}"><span class="badge badge-primary">Editar</span></a></td>
+                                              </div>
+                                            </div>
+                                        </div>
+                                    </tr>   
+                                </div>       
+                            </div>               
+                            {{/each}}
                 </table>
                     <div class="row">
                         <div class="col-12  ">
